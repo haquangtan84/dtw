@@ -22,7 +22,6 @@ public class DtwTest
    {
      String dataFile1 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-1.txt";
      String dataFile2 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-2.txt";
-     int searchRadius = 10;
      
      TimeSeries tsI = new TimeSeries(dataFile1, false, false, ' ');
      TimeSeries tsJ = new TimeSeries(dataFile2, false, false, ' ');
