@@ -10,6 +10,7 @@ package com.fastdtw.examples;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.DistanceFunction;
 import com.fastdtw.util.DistanceFunctionFactory;
+import com.fastdtw.util.Utils;
 import com.fastdtw.dtw.TimeWarpInfo;
 
 
@@ -36,31 +37,23 @@ public class FastDtwTest
     */
       public static void main(String[] args)
       {
-         if (args.length!=3 && args.length!=4)
-         {
-            System.out.println("USAGE:  java FastDtwTest timeSeries1 timeSeries2 radius [EuclideanDistance|ManhattanDistance|BinaryDistance]");
-            System.exit(1);
-         }
-         else
-         {
-            final TimeSeries tsI = new TimeSeries(args[0], false, false, ' ');
-            final TimeSeries tsJ = new TimeSeries(args[1], false, false, ' ');
-            
-            final DistanceFunction distFn;
-            if (args.length < 4)
-            {
-               distFn = DistanceFunctionFactory.getDistFnByName("EuclideanDistance"); 
-            }
-            else
-            {
-               distFn = DistanceFunctionFactory.getDistFnByName(args[3]);
-            }   // end if
-            
-            final TimeWarpInfo info = com.fastdtw.dtw.FastDTW.getWarpInfoBetween(tsI, tsJ, Integer.parseInt(args[2]), distFn);
+        String dataFile1 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-1.txt";
+        String dataFile2 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-4.txt";
+        int searchRadius = 10;
+        
+        TimeSeries tsI = new TimeSeries(dataFile1, false, false, ' ');
+        TimeSeries tsJ = new TimeSeries(dataFile2, false, false, ' ');
+        //tsI = Utils.quantizeTS(tsI);
+        //tsJ = Utils.quantizeTS(tsJ);
+        
+        final DistanceFunction distFn;
+        distFn = DistanceFunctionFactory.getDistFnByName("EuclideanDistance");        
+        
+        final TimeWarpInfo info = com.fastdtw.dtw.FastDTW.getWarpInfoBetween(tsI, tsJ, searchRadius, distFn);
 
-            System.out.println("Warp Distance: " + info.getDistance());
-            System.out.println("Warp Path:     " + info.getPath());
-         }  // end if
+        System.out.println("Warp Distance: " + info.getDistance());
+        System.out.println("Warp Path:     " + info.getPath());
+         
 
       }  // end main()
 
