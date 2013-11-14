@@ -20,11 +20,11 @@ public class DtwTest
    // PUBLIC FUNCTIONS
    public static void main(String[] args)
    {
-     String dataFile1 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-1.txt";
-     String dataFile2 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-2.txt";
+	 String dataFile1 = "/Users/haquangtan/Projects/dtw/src/sign/an/an1.data";
+     String dataFile2 = "/Users/haquangtan/Projects/dtw/src/sign/an/binh_hack_an/binhhackan1.data";
      
-     TimeSeries tsI = new TimeSeries(dataFile1, false, false, ' ');
-     TimeSeries tsJ = new TimeSeries(dataFile2, false, false, ' ');
+     TimeSeries tsI = new TimeSeries(dataFile1, false, false, ',');
+     TimeSeries tsJ = new TimeSeries(dataFile2, false, false, ',');
      tsI = Utils.quantizeTS(tsI);
      tsJ = Utils.quantizeTS(tsJ);
         
@@ -38,6 +38,6 @@ public class DtwTest
      System.out.println("Warp Distance: " + info.getDistance());
      System.out.println("Warp Path:     " + info.getPath());
      
-   }  // end main()
+   }  
 
-}  // end class DtwTest
+} 

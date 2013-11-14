@@ -176,7 +176,8 @@ public class TimeSeries
                int currentCol = 0;
                while (st.hasMoreTokens())
                {
-                  final String currentToken = st.nextToken();
+                  String currentToken = st.nextToken();
+                  if(currentToken.indexOf(" ") > 0) currentToken = currentToken.substring(currentToken.lastIndexOf(" ")+1,currentToken.length());
                   if ( (colToInclude.length==0) || (Arrays.contains(colToInclude, currentCol)) )
                   {
                      // Attempt to parse the next value to a Double value.

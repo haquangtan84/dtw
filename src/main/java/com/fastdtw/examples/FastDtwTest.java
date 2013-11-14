@@ -14,13 +14,7 @@ import com.fastdtw.util.Utils;
 import com.fastdtw.dtw.TimeWarpInfo;
 
 
-/**
- * This class contains a main method that executes the FastDTW algorithm on two
- * time series with a specified radius.
- *
- * @author Stan Salvador, stansalvador@hotmail.com
- * @since Jul 14, 2004
- */
+
 public class FastDtwTest
 {
    /**
@@ -37,12 +31,12 @@ public class FastDtwTest
     */
       public static void main(String[] args)
       {
-        String dataFile1 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-1.txt";
-        String dataFile2 = "/home/tanhq/java/eXoProjects/dtw/src/uWave/U1 (1)/A_Template_Acceleration1-4.txt";
+        String dataFile1 = "/Users/haquangtan/Projects/dtw/src/sign/an/an1.data";
+        String dataFile2 = "/Users/haquangtan/Projects/dtw/src/sign/an/an2.data";
         int searchRadius = 10;
         
-        TimeSeries tsI = new TimeSeries(dataFile1, false, false, ' ');
-        TimeSeries tsJ = new TimeSeries(dataFile2, false, false, ' ');
+        TimeSeries tsI = new TimeSeries(dataFile1, false, false, ',');
+        TimeSeries tsJ = new TimeSeries(dataFile2, false, false, ',');
         //tsI = Utils.quantizeTS(tsI);
         //tsJ = Utils.quantizeTS(tsJ);
         
