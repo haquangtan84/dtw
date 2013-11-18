@@ -22,7 +22,7 @@ public class BasicGestureDTWReport {
 	    double reportlByUser[][] = new double[8][8];
 	    double reportlFinal[][] = new double[8][8];
 	    
-		for(int u=1; u<=8; u++) {
+		for(int u=1; u<=1; u++) {
 			String templateName = preGestureNameByUser[u-1];	
 			ArrayList<String[]> arrSamples = new ArrayList<String[]>();
 			arrSamples.clear();
@@ -83,9 +83,9 @@ public class BasicGestureDTWReport {
 						 TimeSeries tsI = new TimeSeries(sample, false, false, ' ');
 					     TimeSeries tsJ = new TimeSeries(templates[k], false, false, ' ');
 					     
-					     tsI = Utils.quantizeTS(tsI);
-					     tsJ = Utils.quantizeTS(tsJ);
-					     int searchRadius = 30;
+					     //tsI = Utils.quantizeTS(tsI);
+					     //tsJ = Utils.quantizeTS(tsJ);
+					     int searchRadius = 50;
 					     TimeWarpInfo info = com.fastdtw.dtw.FastDTW.getWarpInfoBetween(tsI, tsJ, searchRadius, distFn);
 					     if(k==0) {
 					    	 match = 0;
@@ -126,7 +126,7 @@ public class BasicGestureDTWReport {
 		double result[][] = new double[8][8];
 		for(int i=0; i<8; i++) {
 			for(int j=0; j<8; j++) {
-				result[i][j] = (roundToDecimals((matrix[i][j]/700)*100,2));
+				result[i][j] = (roundToDecimals((matrix[i][j]/4900)*100,2));
 			}
 		}
 		return result;
