@@ -8,7 +8,7 @@ import com.fastdtw.util.DistanceFunctionFactory;
 import com.fastdtw.util.Utils;
 import com.fastdtw.dtw.TimeWarpInfo;
 
-public class BasicGestureDTWReport {
+public class BasicGestureDTWReportNegativeUpdate {
 	static final double[][] costMatrix = new double[8][8];
 	public static String[] preGestureNameByUser = {"A_Template_Acceleration","C_Template_Acceleration","E_Template_Acceleration",
 			"H_Template_Acceleration","J_Template_Acceleration","M_Template_Acceleration","R_Template_Acceleration","Z_Template_Acceleration"};
@@ -19,18 +19,19 @@ public class BasicGestureDTWReport {
 	public static void main(String[] args) {
 		   
 	    distFn = DistanceFunctionFactory.getDistFnByName("EuclideanDistance");
+	    double reportlByUserSameDay[][] = new double[8][8];
 	    double reportlByUser[][] = new double[8][8];
 	    double reportlFinal[][] = new double[8][8];
 	    
 		for(int u=1; u<=8; u++) {
 			String templateName = preGestureNameByUser[u-1];	
 			ArrayList<String[]> arrSamples = new ArrayList<String[]>();
-			arrSamples.clear();
+			//arrSamples.clear();
 			for(int d=1; d<=7; d++) {
 				StringBuilder sb = new StringBuilder();
 				sb.append(baseDir).append("U").append(u).append("-").append("D").append(d).append("/").append(templateName);				
 				String templatesPath = sb.toString();
-				//arrSamples.clear();
+				arrSamples.clear();
 				for(int t=1; t<=10; t++) {
 					String[] arr  = new String[8];
 					for(int g=1; g<=8; g++) {
@@ -40,14 +41,14 @@ public class BasicGestureDTWReport {
 					}
 					arrSamples.add(arr);					
 				}
-								
-			}
-			System.out.println(arrSamples.size());
-			reportlByUser = sumMatrixs(reportlByUser,testByUser(arrSamples));
+				reportlByUserSameDay = sumMatrixs(reportlByUserSameDay, testByUser(arrSamples));				
+				reportlByUser = sumMatrixs(reportlByUser, addToUserReport(reportlByUserSameDay));
+				reportlByUserSameDay = resetValues(reportlByUserSameDay);
+			}			
 			reportlFinal = sumMatrixs(reportlFinal, addToFinalReport(reportlByUser));			
 			for(int t=0; t<8; t++) {
 				for(int v=0; v<8; v++) {
-					System.out.print("  " + roundToDecimals((reportlByUser[t][v]/4900)*100,2));
+					System.out.print("  " + roundToDecimals(reportlByUser[t][v]/7,2));
 				}
 				System.out.println("\n");
 			}
@@ -65,37 +66,59 @@ public class BasicGestureDTWReport {
 	
 	public static double[][] testByUser(ArrayList<String[]> arrSamples) {
 		double result[][] = new double[8][8];
+		String[] templates = null;
+		int y = 0;
+	
 		for(int i = 0; i< arrSamples.size(); i++) {
-			String[] templates = arrSamples.get(i);
+			if(i==0)  {
+			  templates = arrSamples.get(0);
+			}
+			if(i == arrSamples.size()-1) {
+			  y = i;
+			} else y = i+1;
+			String[] newTemplates = arrSamples.get(y);
+			boolean isReplace = false;
 			//double result[][] = new double[8][8];
 			for(int g = 0; g<8; g++) {
-				//Cu chi thu j
-				
+				//Cu chi thu j				
 				for(int j=0; j<arrSamples.size(); j++)
 				{					
 					String[] samples = arrSamples.get(j);
 					String sample = samples[g];
 					int match = 0;
 					double distance = 0;
+					isReplace = false;
 					for(int k=0; k<templates.length; k++)
 					{
-						
-						 TimeSeries tsI = new TimeSeries(sample, false, false, ' ');
+					  
+						   TimeSeries tsI = new TimeSeries(sample, false, false, ' ');
+						   TimeSeries tsY = new TimeSeries(newTemplates[k], false, false, ' ');
 					     TimeSeries tsJ = new TimeSeries(templates[k], false, false, ' ');
 					     
 					     tsI = Utils.quantizeTS(tsI);
 					     tsJ = Utils.quantizeTS(tsJ);
-					     int searchRadius = 50;
+					     tsY = Utils.quantizeTS(tsY);
+					     
 					     TimeWarpInfo info = com.fastdtw.dtw.DTW.getWarpInfoBetween(tsI, tsJ, distFn);
+					     TimeWarpInfo info1 = com.fastdtw.dtw.DTW.getWarpInfoBetween(tsI, tsY, distFn);
 					     if(k==0) {
 					    	 match = 0;
 					    	 distance = info.getDistance();
+					    	 if(info1.getDistance() < info.getDistance()) {
+                   isReplace = true;
+                 }
 					     } else if(info.getDistance() < distance){
 					    	 distance = info.getDistance();
 					    	 match = k;
+					    	 if(info1.getDistance() < info.getDistance()) {
+					    	   isReplace = true;
+					    	 }
 					     }					     
 					}
-					result[g][match] = result[g][match] + 1;					
+					result[g][match] = result[g][match] + 1;	
+					if(isReplace) {
+					  templates[match] = newTemplates[match];
+					}
 				}		
 				
 			}
@@ -126,11 +149,21 @@ public class BasicGestureDTWReport {
 		double result[][] = new double[8][8];
 		for(int i=0; i<8; i++) {
 			for(int j=0; j<8; j++) {
-				result[i][j] = (roundToDecimals((matrix[i][j]/4900)*100,2));
+				result[i][j] = (roundToDecimals((matrix[i][j]/7),2));
 			}
 		}
 		return result;
 	}
+	////////////////////////////
+	public static double[][] addToUserReport(double[][] matrix) {
+		double result[][] = new double[8][8];
+		for(int i=0; i<8; i++) {
+			for(int j=0; j<8; j++) {
+				result[i][j] = (matrix[i][j]);
+			}
+		}
+		return result;
+	}	
 	///////////////////////////////////////////////////
 	public static double[][] resetValues(double[][] matrix) {
 		double result[][] = new double[8][8];
