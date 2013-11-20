@@ -74,13 +74,14 @@ public static double[][] testByUser(ArrayList<String[]> arrSamples) {
     //double result[][] = new double[8][8];
     for(int g = 0; g<8; g++) {
       //Cu chi thu j
-      
+      double match_cost = 0;
+      double distance = 0;
       for(int j=0; j<arrSamples.size(); j++)
       {         
         String[] samples = arrSamples.get(j);
         String sample = samples[g];
         int match = 0;
-        double distance = 0;
+        distance = 0;
         for(int k=0; k<templates.length; k++)
         {
           
@@ -98,8 +99,11 @@ public static double[][] testByUser(ArrayList<String[]> arrSamples) {
                match = k;
              }               
         }
-        result[g][match] = result[g][match] + 1; 
-        templates[match] = sample;
+        result[g][match] = result[g][match] + 1;         
+        if(distance < match_cost) {
+          match_cost = distance;
+          templates[match] = sample;
+        }
       }   
       
     }
