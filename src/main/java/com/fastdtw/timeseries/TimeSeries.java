@@ -190,7 +190,7 @@ public class TimeSeries
                      {
                         throw new RuntimeException("ERROR:  '" + currentToken + "' is not a valid number");
                      }
-
+                     //System.out.println("  === " + nextValue);
                      currentLineValues.add(nextValue);
                   }  // end if
 
