@@ -20,8 +20,8 @@ public class DtwTest
    // PUBLIC FUNCTIONS
    public static void main(String[] args)
    {
-	 String dataFile1 = "/Users/haquangtan/Projects/dtw/src/sign/User10/sign5-1.data";
-     String dataFile2 = "/Users/haquangtan/Projects/dtw/src/sign/User10/sign6-4.data";
+	 String dataFile1 = "/Users/haquangtan/Desktop/sign/tst.csv";
+     String dataFile2 = "/Users/haquangtan/Desktop/sign/1392047596192_2014-02-10_22-53.csv";
      
      TimeSeries tsI = new TimeSeries(dataFile1, false, false, ',');
      TimeSeries tsJ = new TimeSeries(dataFile2, false, false, ',');

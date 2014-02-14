@@ -9,7 +9,7 @@ import com.fastdtw.util.Utils;
 import com.fastdtw.dtw.TimeWarpInfo;
 
 public class SignDTWDistanceReport {
-	public static String baseDir = "/Users/haquangtan/Projects/dtw/src/Sign/";
+	public static String baseDir = "/Users/haquangtan/Projects/Sign/";
 	public static DistanceFunction distFn;	 
 	
 	
@@ -20,22 +20,22 @@ public class SignDTWDistanceReport {
 	    double reportlFinal[][] = new double[10][10];
 	    ArrayList<String[]> arrSamples = new ArrayList<String[]>();
 		arrSamples.clear();
-		for(int u=1; u<=10; u++) {	
+		for(int u=1; u<=7; u++) {	
 			//reportlByUser = resetValues(reportlByUser);
 			arrSamples.clear();
-			for(int i=1; i<=5; i++) {
-				String[] arr  = new String[10];
-				for(int j=1; j<=10; j++) {
+			for(int i=1; i<=10; i++) {
+				String[] arr  = new String[7];
+				for(int j=1; j<=7; j++) {
 					StringBuilder sb = new StringBuilder();
-					sb.append(baseDir).append("User").append(u).append("/").append("sign").append(j).append("-").append(i).append(".data");
+					sb.append(baseDir).append("User").append(u).append("/").append("sign").append(j).append("-").append(i).append(".csv");
 					arr[j-1] = sb.toString();
 				}
 				arrSamples.add(arr);
 			}
 			reportlByUser = sumMatrixs(reportlByUser,testByUser(arrSamples));
 			
-			for(int t=0; t<10; t++) {
-				for(int v=0; v<10; v++) {
+			for(int t=0; t<7; t++) {
+				for(int v=0; v<7; v++) {
 					System.out.print("  " + roundToDecimals((reportlByUser[t][v]),2));
 				}
 				System.out.println("\n");
@@ -47,11 +47,11 @@ public class SignDTWDistanceReport {
 	}
 	
 	public static double[][] testByUser(ArrayList<String[]> arrSamples) {
-		double result[][] = new double[10][10];
+		double result[][] = new double[7][7];
 		for(int i = 0; i< arrSamples.size(); i++) {
 			String[] templates = arrSamples.get(i);
 			//double result[][] = new double[8][8];
-			for(int g = 0; g<10; g++) {
+			for(int g = 0; g<7; g++) {
 				//Cu chi thu j
 				
 				for(int j=0; j<arrSamples.size(); j++)
@@ -92,9 +92,9 @@ public class SignDTWDistanceReport {
 	}
 	///////////////////////////
 	public static double[][] sumMatrixs(double[][] matrix1, double[][] matrix2) {
-		double result[][] = new double[10][10];
-		for(int i=0; i<10; i++) {
-			for(int j=0; j<10; j++) {
+		double result[][] = new double[7][7];
+		for(int i=0; i<7; i++) {
+			for(int j=0; j<7; j++) {
 				result[i][j] = (matrix1[i][j] + matrix2[i][j]);
 			}
 		}
@@ -108,9 +108,9 @@ public class SignDTWDistanceReport {
 	}
 	////////////////////////////
 	public static double[][] addToFinalReport(double[][] matrix) {
-		double result[][] = new double[10][10];
-		for(int i=0; i<10; i++) {
-			for(int j=0; j<10; j++) {
+		double result[][] = new double[7][7];
+		for(int i=0; i<7; i++) {
+			for(int j=0; j<7; j++) {
 				result[i][j] = (roundToDecimals((matrix[i][j]),2));
 			}
 		}
@@ -118,9 +118,9 @@ public class SignDTWDistanceReport {
 	}
 	///////////////////////////////////////////////////
 	public static double[][] resetValues(double[][] matrix) {
-		double result[][] = new double[10][10];
-		for(int i=0; i<10; i++) {
-			for(int j=0; j<10; j++) {
+		double result[][] = new double[7][7];
+		for(int i=0; i<7; i++) {
+			for(int j=0; j<7; j++) {
 				result[i][j] = 0;
 			}
 		}
