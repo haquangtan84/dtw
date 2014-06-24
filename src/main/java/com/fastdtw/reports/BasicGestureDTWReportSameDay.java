@@ -80,8 +80,8 @@ public class BasicGestureDTWReportSameDay {
 					for(int k=0; k<templates.length; k++)
 					{
 						
-						 TimeSeries tsI = new TimeSeries(sample, false, false, ' ');
-					     TimeSeries tsJ = new TimeSeries(templates[k], false, false, ' ');
+						 TimeSeries tsI = new TimeSeries(sample, false, false, ',');
+					     TimeSeries tsJ = new TimeSeries(templates[k], false, false, ',');
 					     
 					     tsI = Utils.quantizeTS(tsI);
 					     tsJ = Utils.quantizeTS(tsJ);

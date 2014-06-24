@@ -12,7 +12,7 @@ public class BasicGestureDTWReport {
 	static final double[][] costMatrix = new double[8][8];
 	public static String[] preGestureNameByUser = {"A_Template_Acceleration","C_Template_Acceleration","E_Template_Acceleration",
 			"H_Template_Acceleration","J_Template_Acceleration","M_Template_Acceleration","R_Template_Acceleration","Z_Template_Acceleration"};
-	public static String baseDir = "/home/tanhq/java/projects/dtw/src/Nokia/";
+	public static String baseDir = "/Users/haquangtan/Projects/dtw/src/Nokia/";
 	public static DistanceFunction distFn;	 
 	
 	
@@ -80,11 +80,11 @@ public class BasicGestureDTWReport {
 					for(int k=0; k<templates.length; k++)
 					{
 						
-						 TimeSeries tsI = new TimeSeries(sample, false, false, ' ');
-					     TimeSeries tsJ = new TimeSeries(templates[k], false, false, ' ');
+						 TimeSeries tsI = new TimeSeries(sample, false, false, ',');
+					     TimeSeries tsJ = new TimeSeries(templates[k], false, false, ',');
 					     
-					     tsI = Utils.quantizeTS(tsI);
-					     tsJ = Utils.quantizeTS(tsJ);
+					     //tsI = Utils.quantizeTS(tsI);
+					     //tsJ = Utils.quantizeTS(tsJ);
 					     int searchRadius = 50;
 					     TimeWarpInfo info = com.fastdtw.dtw.DTW.getWarpInfoBetween(tsI, tsJ, distFn);
 					     if(k==0) {

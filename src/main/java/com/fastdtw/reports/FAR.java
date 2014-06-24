@@ -84,8 +84,8 @@ public class FAR {
 								StringBuilder sb2 = new StringBuilder();
 								sb2.append(templatesPath).append(g).append("-").append(v).append(".txt");
 								String gPath2 = sb2.toString();
-								TimeSeries tsI = new TimeSeries(gPath1, false, false, ' ');
-							    TimeSeries tsJ = new TimeSeries(gPath2, false, false, ' ');					     
+								TimeSeries tsI = new TimeSeries(gPath1, false, false, ',');
+							    TimeSeries tsJ = new TimeSeries(gPath2, false, false, ',');					     
 							    tsI = Utils.quantizeTS(tsI);
 							    tsJ = Utils.quantizeTS(tsJ);
 							    TimeWarpInfo info = com.fastdtw.dtw.DTW.getWarpInfoBetween(tsI, tsJ, distFn);
